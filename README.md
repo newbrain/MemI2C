@@ -9,6 +9,8 @@ To read and write to a I2C memory or any I2C device that need register number be
 The `addr` paramater is the desired address in the I2C memory.
 The `addrsize`parameter is its length in bytes, the acceptable range is 1-4.
 
+The other parameters are as in the `i2c_write_blocking()`.
+
 To use this in your pico project:
 * copy the directory MemI2C as a subdirectory of the base project directory.
 * add the following line to its CMakeLists.txt:<br>
