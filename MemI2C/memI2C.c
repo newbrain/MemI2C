@@ -137,5 +137,5 @@ int i2c_read_mem_blocking(i2c_inst_t *i2c, uint32_t i2caddr, uint32_t addr, size
     /* Write register address, no I2C STOP */
     i2c_write_blocking(i2c, i2caddr, p, addrsize, true);
     /* Use repeated start to read back data */
-    i2c_read_blocking(i2c, i2caddr, dst, len, false);
+    return i2c_read_blocking(i2c, i2caddr, dst, len, false);
 }
