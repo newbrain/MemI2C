@@ -107,7 +107,11 @@ int i2c_write_mem_blocking(i2c_inst_t *i2c, uint32_t i2caddr, uint32_t addr, siz
         else if (abort_reason & I2C_IC_TX_ABRT_SOURCE_ABRT_TXDATA_NOACK_BITS)
         {
             // Address acknowledged, some data not acknowledged
-            rval = byte_ctr;
+            // Return error if still writing address
+            if(byte_ctr < addrsize)
+                rval = PICO_ERROR_GENERIC;
+            else
+                rval = byte_ctr - addrsize;
         }
         else
         {
@@ -134,8 +138,9 @@ int i2c_read_mem_blocking(i2c_inst_t *i2c, uint32_t i2caddr, uint32_t addr, size
     addr = __builtin_bswap32(addr);
     /* Get the address of the MSB */
     const uint8_t *p = (const uint8_t *)&addr + 4 - addrsize;
-    /* Write register address, no I2C STOP */
-    i2c_write_blocking(i2c, i2caddr, p, addrsize, true);
+    /* Write register address, no I2C STOP, error if address cannot be written */
+    if(i2c_write_blocking(i2c, i2caddr, p, addrsize, true) != addrsize)
+        return PICO_ERROR_GENERIC;
     /* Use repeated start to read back data */
     return i2c_read_blocking(i2c, i2caddr, dst, len, false);
 }
