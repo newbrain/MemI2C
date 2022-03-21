@@ -121,7 +121,7 @@ int i2c_write_mem_blocking(i2c_inst_t *i2c, uint32_t i2caddr, uint32_t addr, siz
     }
     else
     {
-        rval = byte_ctr;
+        rval = byte_ctr - addrsize;
     }
 
     // nostop means we are now at the end of a *message* but not the end of a *transfer*
