@@ -10,10 +10,10 @@ The `addr` paramater is the desired address in the I2C memory.
 The `addrsize`parameter is its length in bytes, the acceptable range is 1-4.
 
 The other parameters are as in the `i2c_write_blocking()`.
+The return value is either the number of bytes written to or read from the memory, not including address bytes, or PICO_GENERIC_ERROR in case of errors, including NACK while writing the memory address.
 
 To use this in your pico project:
-* copy the directory MemI2C as a subdirectory of the base project directory.
+* copy this directory (MemI2C) as a subdirectory of the base project directory or add it as a git submodule
 * add the following line to its CMakeLists.txt:<br>
 `add_subdirectory( MemI2C )`
 * use `#include "memI2C.h"` as needed.
-
