@@ -14,6 +14,8 @@ The return value is either the number of bytes written to or read from the memor
 
 To use this in your pico project:
 * copy this directory (MemI2C) as a subdirectory of the base project directory or add it as a git submodule
-* add the following line to its CMakeLists.txt:<br>
+* add the following line to the main CMakeLists.txt, after the `add_executable(...)` statement:<br>
 `add_subdirectory( MemI2C )`
+* At least version 3.13 of CMake is needed, make sure the main CMakeLists.txt begins with a<br>
+`cmake_minimum_required(VERSION 3.13)` (or later) line to correctly set policies.
 * use `#include "memI2C.h"` as needed.
